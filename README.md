@@ -1,12 +1,12 @@
 # Exploitarium
 
-A consolidated archive of public proof-of-concept and vulnerability research writeups.
+A consolidated archive of my public proof-of-concept and vulnerability research writeups.
 
-Each folder contains the tracked file tree from its original standalone repository. The files inside those folders were imported without content changes and keep their original per-PoC READMEs, licenses, scripts, payloads, evidence files, and validation notes.
+Each folder contains one of my former standalone PoC repos, preserved with its original README and tracked files. This repo is just a cleaner single-home layout for the same work.
 
 ## Contents
 
-| Folder | Imported commit | Tracked entries |
+| Folder | Original commit | Tracked entries |
 | --- | --- | ---: |
 | `7zip-rar5-motw-chain-poc` | `bd9533f532c1e4ee6af783b9bb49d1133c600e2c` | 3 |
 | `anydesk-printer-com-impersonation-poc` | `7491303301093b2d40bee9dadf6b38f757ce78e0` | 4 |
@@ -21,17 +21,17 @@ Each folder contains the tracked file tree from its original standalone reposito
 | `openvpn-connect-echo-script-ace-poc` | `d2f904d9272d4388c9862131d40e32e072e85e38` | 8 |
 | `vlc-vp9-reschange-crash-poc` | `fae72b82f24d03cf2fb9cb55fbb2e7774f684ff3` | 3 |
 
-## Verification
+## Consolidation Check
 
-The consolidation was verified from fresh GitHub clones on June 23, 2026.
+The consolidation was checked from fresh GitHub clones on June 23, 2026 before the old standalone repos were removed.
 
-The check compared every source repository's `HEAD` tree against the corresponding folder in this repository using Git tree data, not filesystem text comparison. For every tracked entry, the verification required:
+The check compared each former standalone repo's `HEAD` tree against the matching folder here using Git tree data, not a loose filesystem diff. For every tracked entry, the check required:
 
 - the same relative path;
 - the same Git object type;
 - the same tree mode, including executable bits;
 - the same Git blob ID.
 
-Matching Git blob IDs means the tracked file bytes are identical. The verification covered 12 repositories and 96 tracked entries with zero mismatches.
+Matching Git blob IDs means the tracked file bytes are identical. The check covered 12 repos and 96 tracked entries with zero mismatches.
 
-This repository is a contents archive. Repository-level metadata such as stars, issues, pull requests, releases, and separate Git history are not represented inside the folders.
+This repository preserves the contents of those PoCs. Repository-level metadata such as stars, issues, pull requests, releases, and separate Git history are not represented inside the folders.
