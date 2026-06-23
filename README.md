@@ -2,7 +2,7 @@
 
 A consolidated archive of my public proof-of-concept and vulnerability research writeups.
 
-Each folder contains one of my former standalone PoC repos, preserved with its original README and tracked files. This repo is just a cleaner single-home layout for the same work.
+Most folders contain one of my former standalone PoC repos, preserved with its original README and tracked files. New research entries may also be added directly here.
 
 ## Contents
 
@@ -17,6 +17,7 @@ Each folder contains one of my former standalone PoC repos, preserved with its o
 | `imagemagick-gs-delegate-hijack-poc` | `8140e8ee0ed78beaf5e8303a795b70b138f5891b` | 5 |
 | `lunar-modrinth-chain-poc` | `ffd02120708b6503f11585858ce3724872f3b7a7` | 6 |
 | `mybb-limited-acp-to-admin` | `1610e0373943c2f6562a99f917d3a3d1fdd9056d` | 5 |
+| `nmap-ipv6-extlen-wrap-poc` | `new research entry` | 4 |
 | `objdump-dlx-calc-poc` | `7df01e4e20c7375a89e8ccf760526c52eb6ad582` | 41 |
 | `openvpn-connect-echo-script-ace-poc` | `d2f904d9272d4388c9862131d40e32e072e85e38` | 8 |
 | `vlc-vp9-reschange-crash-poc` | `fae72b82f24d03cf2fb9cb55fbb2e7774f684ff3` | 3 |
