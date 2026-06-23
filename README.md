@@ -2,11 +2,11 @@
 
 A consolidated archive of my public proof-of-concept and vulnerability research writeups.
 
-Most folders contain one of my former standalone PoC repos, preserved with its original README and tracked files. New research entries may also be added directly here.
+Most folders contain one of my former standalone PoC repos, preserved with its original README and tracked files. New research entries are added directly here as self-contained folders.
 
 ## Contents
 
-| Folder | Original commit | Tracked entries |
+| Folder | Source | Tracked entries |
 | --- | --- | ---: |
 | `7zip-rar5-motw-chain-poc` | `bd9533f532c1e4ee6af783b9bb49d1133c600e2c` | 3 |
 | `anydesk-printer-com-impersonation-poc` | `7491303301093b2d40bee9dadf6b38f757ce78e0` | 4 |
@@ -17,12 +17,14 @@ Most folders contain one of my former standalone PoC repos, preserved with its o
 | `imagemagick-gs-delegate-hijack-poc` | `8140e8ee0ed78beaf5e8303a795b70b138f5891b` | 5 |
 | `lunar-modrinth-chain-poc` | `ffd02120708b6503f11585858ce3724872f3b7a7` | 6 |
 | `mybb-limited-acp-to-admin` | `1610e0373943c2f6562a99f917d3a3d1fdd9056d` | 5 |
-| `nmap-ipv6-extlen-wrap-poc` | `new research entry` | 4 |
+| `nmap-ipv6-extlen-wrap-poc` | direct entry, June 23, 2026 | 4 |
 | `objdump-dlx-calc-poc` | `7df01e4e20c7375a89e8ccf760526c52eb6ad582` | 41 |
 | `openvpn-connect-echo-script-ace-poc` | `d2f904d9272d4388c9862131d40e32e072e85e38` | 8 |
 | `vlc-vp9-reschange-crash-poc` | `fae72b82f24d03cf2fb9cb55fbb2e7774f684ff3` | 3 |
 
 ## Consolidation Check
+
+This section applies to the former standalone repositories listed above by commit hash.
 
 The consolidation was checked from fresh GitHub clones on June 23, 2026 before the old standalone repos were removed.
 
@@ -36,3 +38,5 @@ The check compared each former standalone repo's `HEAD` tree against the matchin
 Matching Git blob IDs means the tracked file bytes are identical. The check covered 12 repos and 96 tracked entries with zero mismatches.
 
 This repository preserves the contents of those PoCs. Repository-level metadata such as stars, issues, pull requests, releases, and separate Git history are not represented inside the folders.
+
+Direct entries, including `nmap-ipv6-extlen-wrap-poc`, are authored in this repository and are tracked by this repository's commit history.
