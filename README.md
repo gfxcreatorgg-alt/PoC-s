@@ -1,26 +1,37 @@
 # Exploitarium
 
-A single index repo for my public proof-of-concept and vulnerability research writeups.
+A consolidated archive of public proof-of-concept and vulnerability research writeups.
 
-Each folder is a snapshot of the original standalone repository, kept with its own README and files intact. The original repositories are still available separately on GitHub.
+Each folder contains the tracked file tree from its original standalone repository. The files inside those folders were imported without content changes and keep their original per-PoC READMEs, licenses, scripts, payloads, evidence files, and validation notes.
 
 ## Contents
 
-| Folder | Original repo |
-| --- | --- |
-| `7zip-rar5-motw-chain-poc` | <https://github.com/bikini/7zip-rar5-motw-chain-poc> |
-| `anydesk-printer-com-impersonation-poc` | <https://github.com/bikini/anydesk-printer-com-impersonation-poc> |
-| `docker-cp-copyout-destination-escape` | <https://github.com/bikini/docker-cp-copyout-destination-escape> |
-| `flowise-mcp-env-case-bypass-poc` | <https://github.com/bikini/flowise-mcp-env-case-bypass-poc> |
-| `ghidra-12.1.2-rce-ace-calc-poc` | <https://github.com/bikini/ghidra-12.1.2-rce-ace-calc-poc> |
-| `gitea-act-runner-container-options-poc` | <https://github.com/bikini/gitea-act-runner-container-options-poc> |
-| `imagemagick-gs-delegate-hijack-poc` | <https://github.com/bikini/imagemagick-gs-delegate-hijack-poc> |
-| `lunar-modrinth-chain-poc` | <https://github.com/bikini/lunar-modrinth-chain-poc> |
-| `mybb-limited-acp-to-admin` | <https://github.com/bikini/mybb-limited-acp-to-admin> |
-| `objdump-dlx-calc-poc` | <https://github.com/bikini/objdump-dlx-calc-poc> |
-| `openvpn-connect-echo-script-ace-poc` | <https://github.com/bikini/openvpn-connect-echo-script-ace-poc> |
-| `vlc-vp9-reschange-crash-poc` | <https://github.com/bikini/vlc-vp9-reschange-crash-poc> |
+| Folder | Imported commit | Tracked entries |
+| --- | --- | ---: |
+| `7zip-rar5-motw-chain-poc` | `bd9533f532c1e4ee6af783b9bb49d1133c600e2c` | 3 |
+| `anydesk-printer-com-impersonation-poc` | `7491303301093b2d40bee9dadf6b38f757ce78e0` | 4 |
+| `docker-cp-copyout-destination-escape` | `d1367b1381736d7f961ac808ce88d4e24a633adc` | 5 |
+| `flowise-mcp-env-case-bypass-poc` | `ed9fab0086674f1b16467990b33bb9299e93429e` | 3 |
+| `ghidra-12.1.2-rce-ace-calc-poc` | `52dee6362990c03c0d753d074c85428824d46368` | 9 |
+| `gitea-act-runner-container-options-poc` | `f06d78fb111732f3e7737f4c07e77ef94c4b64bf` | 4 |
+| `imagemagick-gs-delegate-hijack-poc` | `8140e8ee0ed78beaf5e8303a795b70b138f5891b` | 5 |
+| `lunar-modrinth-chain-poc` | `ffd02120708b6503f11585858ce3724872f3b7a7` | 6 |
+| `mybb-limited-acp-to-admin` | `1610e0373943c2f6562a99f917d3a3d1fdd9056d` | 5 |
+| `objdump-dlx-calc-poc` | `7df01e4e20c7375a89e8ccf760526c52eb6ad582` | 41 |
+| `openvpn-connect-echo-script-ace-poc` | `d2f904d9272d4388c9862131d40e32e072e85e38` | 8 |
+| `vlc-vp9-reschange-crash-poc` | `fae72b82f24d03cf2fb9cb55fbb2e7774f684ff3` | 3 |
 
-## Notes
+## Verification
 
-This repository is an archive and index. For the most accurate context on a specific PoC, read the README inside that PoC's folder.
+The consolidation was verified from fresh GitHub clones on June 23, 2026.
+
+The check compared every source repository's `HEAD` tree against the corresponding folder in this repository using Git tree data, not filesystem text comparison. For every tracked entry, the verification required:
+
+- the same relative path;
+- the same Git object type;
+- the same tree mode, including executable bits;
+- the same Git blob ID.
+
+Matching Git blob IDs means the tracked file bytes are identical. The verification covered 12 repositories and 96 tracked entries with zero mismatches.
+
+This repository is a contents archive. Repository-level metadata such as stars, issues, pull requests, releases, and separate Git history are not represented inside the folders.
