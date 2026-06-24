@@ -22,6 +22,7 @@ Most folders contain one of my former standalone PoC repos, preserved with its o
 | `nmap-ipv6-extlen-wrap-poc` | direct entry, June 23, 2026 | 4 |
 | `objdump-dlx-calc-poc` | `7df01e4e20c7375a89e8ccf760526c52eb6ad582` | 41 |
 | `openvpn-connect-echo-script-ace-poc` | `d2f904d9272d4388c9862131d40e32e072e85e38` | 8 |
+| `systeminformer-phsvc-trusted-host-lpe-poc` | direct entry, June 24, 2026 | 3 |
 | `vlc-vp9-reschange-crash-poc` | `fae72b82f24d03cf2fb9cb55fbb2e7774f684ff3` | 3 |
 
 ## Consolidation Check
@@ -41,4 +42,4 @@ Matching Git blob IDs means the tracked file bytes are identical. The check cove
 
 This repository preserves the contents of those PoCs. Repository-level metadata such as stars, issues, pull requests, releases, and separate Git history are not represented inside the folders.
 
-Direct entries, including `floci-apigateway-vtl-rce-poc`, `libssh2-cve-2026-55200-poc`, and `nmap-ipv6-extlen-wrap-poc`, are authored in this repository and are tracked by this repository's commit history.
+Direct entries, including `floci-apigateway-vtl-rce-poc`, `libssh2-cve-2026-55200-poc`, `nmap-ipv6-extlen-wrap-poc`, and `systeminformer-phsvc-trusted-host-lpe-poc`, are authored in this repository and are tracked by this repository's commit history.
