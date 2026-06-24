@@ -10,6 +10,7 @@ Most folders contain one of my former standalone PoC repos, preserved with its o
 | --- | --- | ---: |
 | `7zip-rar5-motw-chain-poc` | `bd9533f532c1e4ee6af783b9bb49d1133c600e2c` | 3 |
 | `anydesk-printer-com-impersonation-poc` | `7491303301093b2d40bee9dadf6b38f757ce78e0` | 4 |
+| `c-ares-tcp-uaf-calc-poc` | direct entry, June 24, 2026 | 7 |
 | `docker-cp-copyout-destination-escape` | `d1367b1381736d7f961ac808ce88d4e24a633adc` | 5 |
 | `floci-apigateway-vtl-rce-poc` | direct entry, June 23, 2026 | 3 |
 | `flowise-mcp-env-case-bypass-poc` | `ed9fab0086674f1b16467990b33bb9299e93429e` | 3 |
@@ -42,4 +43,4 @@ Matching Git blob IDs means the tracked file bytes are identical. The check cove
 
 This repository preserves the contents of those PoCs. Repository-level metadata such as stars, issues, pull requests, releases, and separate Git history are not represented inside the folders.
 
-Direct entries, including `floci-apigateway-vtl-rce-poc`, `libssh2-cve-2026-55200-poc`, `nmap-ipv6-extlen-wrap-poc`, and `systeminformer-phsvc-trusted-host-lpe-poc`, are authored in this repository and are tracked by this repository's commit history.
+Direct entries, including `c-ares-tcp-uaf-calc-poc`, `floci-apigateway-vtl-rce-poc`, `libssh2-cve-2026-55200-poc`, `nmap-ipv6-extlen-wrap-poc`, and `systeminformer-phsvc-trusted-host-lpe-poc`, are tracked by this repository's commit history.
