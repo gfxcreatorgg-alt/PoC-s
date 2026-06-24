@@ -49,16 +49,16 @@ Registry state observed in local verification:
 
 ```text
 Before connect: AutoConfigURL=null, ProxyEnable=0
-During connect: AutoConfigURL=http://127.0.0.1:18080/codex-openvpn-connect.pac, ProxyEnable=0
+During connect: AutoConfigURL=http://127.0.0.1:18080/openvpn-connect-poc.pac, ProxyEnable=0
 After disconnect: AutoConfigURL=null, ProxyEnable=0
 ```
 
 Relevant log indicators:
 
 ```text
-0 [dhcp-option] [PROXY_AUTO_CONFIG_URL] [http://127.0.0.1:18080/codex-openvpn-connect.pac]
-/tun-setup proxy_auto_config_url.url=http://127.0.0.1:18080/codex-openvpn-connect.pac
-ProxyAction: auto config: http://127.0.0.1:18080/codex-openvpn-connect.pac
+0 [dhcp-option] [PROXY_AUTO_CONFIG_URL] [http://127.0.0.1:18080/openvpn-connect-poc.pac]
+/tun-setup proxy_auto_config_url.url=http://127.0.0.1:18080/openvpn-connect-poc.pac
+ProxyAction: auto config: http://127.0.0.1:18080/openvpn-connect-poc.pac
 ```
 
 ## Tested Target
