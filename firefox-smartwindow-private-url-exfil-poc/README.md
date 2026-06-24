@@ -13,8 +13,6 @@ Smart Window's `get_open_tabs` and `search_browsing_history` tools return privat
 
 ## Impact
 
-Estimated severity: high.
-
 An attacker who can place a malicious title into the user's open tabs or browsing history can cause Smart Window to send private browser URLs to an attacker-controlled HTTP endpoint through a hidden `get_page_content` fetch. The leaked URL can include sensitive path and query-string data such as search terms, document identifiers, account paths, invitation links, reset links, or application-specific one-time values.
 
 The confirmed variants are:
