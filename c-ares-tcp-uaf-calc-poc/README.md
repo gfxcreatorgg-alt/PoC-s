@@ -14,7 +14,7 @@ The marker writes a proof file under `/tmp` and attempts to start a local calcul
 
 ## Status
 
-Disclosure status: privately reported upstream; publication permitted while a fix is being staged.
+Unpatched
 
 Verified targets:
 
