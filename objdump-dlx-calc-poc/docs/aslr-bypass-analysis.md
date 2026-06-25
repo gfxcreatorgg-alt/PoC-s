@@ -14,6 +14,8 @@ The current generator emits:
 - `orig`: the first measured profile.
 - `wsl2404`: offsets measured against the pinned `dlx-elf` build on
   WSL/Ubuntu 24.04.
+- `gnu2461`: offsets measured against a clean GNU Binutils 2.46.1 `dlx-elf`
+  objdump build.
 
 The `wsl2404` profile uses:
 
@@ -24,6 +26,22 @@ rbase=0x220
 buf_delta=0x702fff00 or 0x6f300000
 system_delta=0x7042e500 or 0x7043e4ff
 ```
+
+The `gnu2461` profile uses:
+
+```text
+off_io=-0x3690
+off_sec=0xbb8
+sec_size_offset=0x40
+rbase=0x190
+buf_delta=0x702fff00 or 0x6f300000
+system_delta=0x7042e500 or 0x7043e4ff
+```
+
+The 2.46.1 profile differs because the relocation cache array moved from
+`data+0x220` to `data+0x190`, the BFD section object moved from `data+0xbb0`
+to `data+0xbb8`, and the `bfd_section.size` field used to widen generic
+relocation range checks is at section offset `0x40`.
 
 ## Why argv two-stage is not enough
 

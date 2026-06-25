@@ -5,6 +5,7 @@ wide_delta=0x4fff0000
 system_delta=0x7043e4ff
 command=P
 off_io=-0x46a0 off_sec=0xb20 rbase=0x1f0
+sec_size_offset=0x38
 
 000 target=0x23b sym=0x00ffffff patch reloc2 address high dword bytes 0..2
 001 target=0x23c sym=0x000000ff patch reloc2 address high dword byte 3

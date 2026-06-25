@@ -36,6 +36,7 @@ LAYOUTS = (
         "name": "orig",
         "off_io": OFF_IO,
         "off_sec": OFF_SEC,
+        "sec_size_offset": 0x38,
         "rbase": RBASE,
         "buf_deltas": BUF_TO_FILE_BE32_DELTAS,
         "wide_deltas": WIDE_TO_FAKE_BE32_DELTAS,
@@ -45,7 +46,18 @@ LAYOUTS = (
         "name": "wsl2404",
         "off_io": -0x3690,
         "off_sec": 0xBB0,
+        "sec_size_offset": 0x38,
         "rbase": 0x220,
+        "buf_deltas": (0x702FFF00, 0x6F300000),
+        "wide_deltas": WIDE_TO_FAKE_BE32_DELTAS,
+        "system_deltas": STDERR_TO_SYSTEM_BE32_DELTAS,
+    },
+    {
+        "name": "gnu2461",
+        "off_io": -0x3690,
+        "off_sec": 0xBB8,
+        "sec_size_offset": 0x40,
+        "rbase": 0x190,
         "buf_deltas": (0x702FFF00, 0x6F300000),
         "wide_deltas": WIDE_TO_FAKE_BE32_DELTAS,
         "system_deltas": STDERR_TO_SYSTEM_BE32_DELTAS,
@@ -85,8 +97,8 @@ def build(out_dir):
         file_system_slot = off_io + 0x68
         file_wide_data = off_io + 0xA0
         file_vtable = off_io + 0xD8
-        section_size_low = off_sec + 0x38
-        section_size_high = off_sec + 0x3C
+        section_size_low = off_sec + layout["sec_size_offset"]
+        section_size_high = section_size_low + 4
 
         for flag_byte4 in (0x05, 0x06):
             for buf_delta in layout["buf_deltas"]:
@@ -131,6 +143,7 @@ def build(out_dir):
                                     f"system_delta=0x{system_delta:08x}",
                                     "command=P",
                                     f"off_io={off_io:#x} off_sec={off_sec:#x} rbase={rbase:#x}",
+                                    f"sec_size_offset={layout['sec_size_offset']:#x}",
                                     "",
                                 ]
                                 + [
