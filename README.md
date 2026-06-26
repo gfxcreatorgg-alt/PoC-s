@@ -28,6 +28,7 @@ Most folders contain one of my former standalone PoC repos, preserved with its o
 | `libssh2-publickey-list-calc-poc` | direct entry, June 25, 2026 | 10 |
 | `lunar-modrinth-chain-poc` | `ffd02120708b6503f11585858ce3724872f3b7a7` | 6 |
 | `mybb-limited-acp-to-admin` | `1610e0373943c2f6562a99f917d3a3d1fdd9056d` | 5 |
+| `nghttp2-nghttpx-upgrade-queue-poison-poc` | direct entry, June 26, 2026 | 3 |
 | `nmap-ipv6-extlen-wrap-poc` | direct entry, June 23, 2026 | 4 |
 | `objdump-dlx-calc-poc` | `7df01e4e20c7375a89e8ccf760526c52eb6ad582` | 41 |
 | `openvpn-connect-echo-script-ace-poc` | `d2f904d9272d4388c9862131d40e32e072e85e38` | 8 |
@@ -53,4 +54,4 @@ Matching Git blob IDs means the tracked file bytes are identical. The check cove
 
 This repository preserves the contents of those PoCs. Repository-level metadata such as stars, issues, pull requests, releases, and separate Git history remain in the original repository histories.
 
-Direct entries, including `c-ares-tcp-uaf-calc-poc`, `firefox-smartwindow-private-url-exfil-poc`, `floci-apigateway-vtl-rce-poc`, `libssh2-cve-2026-55200-poc`, `libssh2-publickey-list-calc-poc`, `nmap-ipv6-extlen-wrap-poc`, `php857-streambucket-soap-rce-rpoc`, `rustdesk-session-permission-pocs`, and `systeminformer-phsvc-trusted-host-lpe-poc`, are tracked by this repository's commit history.
+Direct entries, including `c-ares-tcp-uaf-calc-poc`, `firefox-smartwindow-private-url-exfil-poc`, `floci-apigateway-vtl-rce-poc`, `libssh2-cve-2026-55200-poc`, `libssh2-publickey-list-calc-poc`, `nghttp2-nghttpx-upgrade-queue-poison-poc`, `nmap-ipv6-extlen-wrap-poc`, `php857-streambucket-soap-rce-rpoc`, `rustdesk-session-permission-pocs`, and `systeminformer-phsvc-trusted-host-lpe-poc`, are tracked by this repository's commit history.
