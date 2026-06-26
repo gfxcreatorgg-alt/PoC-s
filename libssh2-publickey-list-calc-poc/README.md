@@ -41,25 +41,32 @@ reject num_attrs values that overflow the attrs allocation multiplication
 
 ```text
 poc/publickey_win32_heap_groom_calc_repro.c
-poc/publickey_win32_heap_groom_calc_repro.exe
-poc/publickey_win32_heap_groom_calc_repro_checked.exe
 poc/publickey_win64_arbitrary_free_calc_repro.c
-poc/publickey_win64_arbitrary_free_calc_repro.exe
-poc/publickey_win64_arbitrary_free_calc_repro_checked.exe
-replay-calc-poc.ps1
+replay-calc-poc.py
 evidence/2026-06-25-local-calc-replay.txt
 SHA256SUMS.txt
 ```
 
-The checked binaries link against a publickey object with the two parser hardening changes above. The vulnerable binaries link against the target commit.
+The replay runner builds temporary vulnerable and checked executables under `build/`. The checked executables link against a publickey object with the two parser hardening changes above. The vulnerable executables link against the target commit.
 
 ## Quick replay
 
-Run on Windows:
+Set `LIBSSH2_SRC` to a libssh2 checkout and `LIBSSH2_OBJDIR` to a directory containing these objects:
 
-```powershell
-.\replay-calc-poc.ps1
+```text
+publickey_win32.o
+publickey_win32_checked.o
+publickey_win64.o
+publickey_win64_checked.o
 ```
+
+Run with Python 3:
+
+```sh
+python3 replay-calc-poc.py
+```
+
+Windows runs the generated PE harnesses directly. Linux and macOS run them through Wine when `wine` is on `PATH`.
 
 Expected proof signals:
 
@@ -79,7 +86,7 @@ victim_freed=0
 safe_callback_reached
 ```
 
-The replay starts `calc.exe` for both vulnerable harnesses and writes transient marker files during execution. The marker files are runtime artifacts and are left out of the tracked tree.
+The replay builds local executables, starts `calc.exe` for both vulnerable harnesses, and writes transient marker files during execution. The generated files are runtime artifacts and are left out of the tracked tree.
 
 ## Win32 chain
 
@@ -177,18 +184,18 @@ list_free trusts packet and attrs fields until a sentinel entry
 
 ## Rebuild notes
 
-The binaries were built with MinGW-w64 and linked against `publickey.c` objects compiled from the target commit and from the checked variant.
+The replay runner uses MinGW-w64 and links against `publickey.c` objects compiled from the target commit and from the checked variant.
 
 Equivalent source build shape:
 
-```powershell
-x86_64-w64-mingw32-gcc -O0 -Wall -Wextra -DLIBSSH2_WINCNG -I$env:LIBSSH2_SRC\src -I$env:LIBSSH2_SRC\include -o poc\publickey_win64_arbitrary_free_calc_repro.exe poc\publickey_win64_arbitrary_free_calc_repro.c $env:LIBSSH2_OBJDIR\publickey_win64.o -lws2_32 -lbcrypt
+```sh
+x86_64-w64-mingw32-gcc -O2 -s -DLIBSSH2_WINCNG -I"${LIBSSH2_SRC}/src" -I"${LIBSSH2_SRC}/include" -o build/publickey_win64_arbitrary_free_calc_repro.exe poc/publickey_win64_arbitrary_free_calc_repro.c "${LIBSSH2_OBJDIR}/publickey_win64.o" -lws2_32 -lbcrypt
 
-x86_64-w64-mingw32-gcc -O0 -Wall -Wextra -DLIBSSH2_WINCNG -I$env:LIBSSH2_SRC\src -I$env:LIBSSH2_SRC\include -o poc\publickey_win64_arbitrary_free_calc_repro_checked.exe poc\publickey_win64_arbitrary_free_calc_repro.c $env:LIBSSH2_OBJDIR\publickey_win64_checked.o -lws2_32 -lbcrypt
+x86_64-w64-mingw32-gcc -O2 -s -DLIBSSH2_WINCNG -I"${LIBSSH2_SRC}/src" -I"${LIBSSH2_SRC}/include" -o build/publickey_win64_arbitrary_free_calc_repro_checked.exe poc/publickey_win64_arbitrary_free_calc_repro.c "${LIBSSH2_OBJDIR}/publickey_win64_checked.o" -lws2_32 -lbcrypt
 
-i686-w64-mingw32-gcc -O0 -Wall -Wextra -DLIBSSH2_WINCNG -I$env:LIBSSH2_SRC\src -I$env:LIBSSH2_SRC\include -o poc\publickey_win32_heap_groom_calc_repro.exe poc\publickey_win32_heap_groom_calc_repro.c $env:LIBSSH2_OBJDIR\publickey_win32.o -lws2_32 -lbcrypt
+i686-w64-mingw32-gcc -O2 -s -DLIBSSH2_WINCNG -I"${LIBSSH2_SRC}/src" -I"${LIBSSH2_SRC}/include" -o build/publickey_win32_heap_groom_calc_repro.exe poc/publickey_win32_heap_groom_calc_repro.c "${LIBSSH2_OBJDIR}/publickey_win32.o" -lws2_32 -lbcrypt
 
-i686-w64-mingw32-gcc -O0 -Wall -Wextra -DLIBSSH2_WINCNG -I$env:LIBSSH2_SRC\src -I$env:LIBSSH2_SRC\include -o poc\publickey_win32_heap_groom_calc_repro_checked.exe poc\publickey_win32_heap_groom_calc_repro.c $env:LIBSSH2_OBJDIR\publickey_win32_checked.o -lws2_32 -lbcrypt
+i686-w64-mingw32-gcc -O2 -s -DLIBSSH2_WINCNG -I"${LIBSSH2_SRC}/src" -I"${LIBSSH2_SRC}/include" -o build/publickey_win32_heap_groom_calc_repro_checked.exe poc/publickey_win32_heap_groom_calc_repro.c "${LIBSSH2_OBJDIR}/publickey_win32_checked.o" -lws2_32 -lbcrypt
 ```
 
 ## Fix shape
@@ -203,4 +210,4 @@ Before attrs allocation:
 if num_attrs exceeds SIZE_MAX / sizeof(libssh2_publickey_attribute), reject the response
 ```
 
-These two changes remove the Win64 stale cleanup path and the Win32 allocation-wrap path exercised by the checked binaries.
+These two changes remove the Win64 stale cleanup path and the Win32 allocation-wrap path exercised by the checked executables.
