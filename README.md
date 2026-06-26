@@ -25,6 +25,7 @@ Most folders contain one of my former standalone PoC repos, preserved with its o
 | `gitea-act-runner-container-options-poc` | `f06d78fb111732f3e7737f4c07e77ef94c4b64bf` | 4 |
 | `imagemagick-gs-delegate-hijack-poc` | `8140e8ee0ed78beaf5e8303a795b70b138f5891b` | 5 |
 | `libssh2-cve-2026-55200-poc` | direct entry, June 23, 2026 | 3 |
+| `libssh2-publickey-list-calc-poc` | direct entry, June 25, 2026 | 10 |
 | `lunar-modrinth-chain-poc` | `ffd02120708b6503f11585858ce3724872f3b7a7` | 6 |
 | `mybb-limited-acp-to-admin` | `1610e0373943c2f6562a99f917d3a3d1fdd9056d` | 5 |
 | `nmap-ipv6-extlen-wrap-poc` | direct entry, June 23, 2026 | 4 |
@@ -40,7 +41,7 @@ This section applies to the former standalone repositories listed above by commi
 
 The consolidation was checked from fresh GitHub clones on June 23, 2026 before the old standalone repos were removed.
 
-The check compared each former standalone repo's `HEAD` tree against the matching folder here using Git tree data, not a loose filesystem diff. For every tracked entry, the check required:
+The check compared each former standalone repo's `HEAD` tree against the matching folder here using Git tree data rather than a loose filesystem diff. For every tracked entry, the check required:
 
 - the same relative path;
 - the same Git object type;
@@ -49,6 +50,6 @@ The check compared each former standalone repo's `HEAD` tree against the matchin
 
 Matching Git blob IDs means the tracked file bytes are identical. The check covered 12 repos and 96 tracked entries with zero mismatches.
 
-This repository preserves the contents of those PoCs. Repository-level metadata such as stars, issues, pull requests, releases, and separate Git history are not represented inside the folders.
+This repository preserves the contents of those PoCs. Repository-level metadata such as stars, issues, pull requests, releases, and separate Git history remain in the original repository histories.
 
-Direct entries, including `c-ares-tcp-uaf-calc-poc`, `firefox-smartwindow-private-url-exfil-poc`, `floci-apigateway-vtl-rce-poc`, `libssh2-cve-2026-55200-poc`, `nmap-ipv6-extlen-wrap-poc`, `rustdesk-session-permission-pocs`, and `systeminformer-phsvc-trusted-host-lpe-poc`, are tracked by this repository's commit history.
+Direct entries, including `c-ares-tcp-uaf-calc-poc`, `firefox-smartwindow-private-url-exfil-poc`, `floci-apigateway-vtl-rce-poc`, `libssh2-cve-2026-55200-poc`, `libssh2-publickey-list-calc-poc`, `nmap-ipv6-extlen-wrap-poc`, `rustdesk-session-permission-pocs`, and `systeminformer-phsvc-trusted-host-lpe-poc`, are tracked by this repository's commit history.
