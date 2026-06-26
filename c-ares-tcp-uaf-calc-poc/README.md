@@ -25,6 +25,8 @@ Verified targets:
 
 This is a local proof harness, not a universal exploit for every application that links c-ares. It demonstrates controlled code execution in the harness when the affected c-ares path, response sequence, allocator shaping, and cleanup path are present.
 
+The current `main` head and latest official release tag were both verified through the same resolver I/O path. The PoC is not an offline packet parser: it starts a loopback DNS-over-TCP server, lets c-ares issue real TCP DNS queries, sends the two-response EDNS retry sequence, and then resets the connection before cleanup consumes the stale state.
+
 ## Files
 
 - `poc/cares_tcp_uaf_calc_poc.c` - standalone C proof harness and benign calc payload.
@@ -132,6 +134,16 @@ upstream main c93e50f3: run=1 rc=77
 v1.34.6 release: run=1 rc=77
 ```
 
+Additional local repeat testing against the release build reached the control-flow marker in consecutive runs:
+
+```text
+run=1 rc=77 hit=true
+run=2 rc=77 hit=true
+run=3 rc=77 hit=true
+run=4 rc=77 hit=true
+run=5 rc=77 hit=true
+```
+
 A miss does not necessarily mean the target is fixed. Use the GDB evidence mode or retry loop when validating.
 
 ## Why this is code execution and not only a crash
@@ -214,4 +226,4 @@ Short-term risk reducers, where compatible with the application, include:
 
 ## Responsible Use
 
-Run this PoC only against local research targets, owned systems, or explicitly authorized lab and CTF environments.
+Run this PoC only against local research targets, owned systems, or explicitly authorized lab environments.
