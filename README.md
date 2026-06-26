@@ -1,5 +1,3 @@
-New unpatched RCE on libssh2 upstream commit coming later today, as well as something big for PHP. 
-
 Sharing this repo keeps me motivated to continue dropping 0-days for you all. 
 
 Open an issue if you have a specific request for software you want me to take a look at.
