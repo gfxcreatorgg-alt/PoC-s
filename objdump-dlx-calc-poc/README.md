@@ -1,3 +1,5 @@
+As mentioned before, https://github.com/4D4J/objdump-Out-Of-Bounds-write beat me to this finding. Please support his repo. He deserves it, great PoC with FULL ASLR bypass 
+
 # objdump dlx calc poc
 
 Small repro for an `objdump -g` crash-to-calc path in the DLX ELF backend.
