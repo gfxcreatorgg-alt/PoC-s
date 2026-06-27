@@ -11,6 +11,8 @@ https://github.com/4D4J/objdump-Out-Of-Bounds-write
 
 New drops today ;) Biggest thing yet 
 
+I've also noticed a surprising amount of "security researchers" aren't able to adjust the PoC to work in their environment. I will broaden the PoCs for those select few...
+
 If you wish to collaborate/discuss with me, contact me on discord @ashdfrkl
 
 Sharing this repo keeps me motivated to continue dropping my findings for you all. 
