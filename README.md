@@ -1,3 +1,5 @@
+New drops today ;) Biggest thing yet 
+
 If you wish to collaborate/discuss with me, contact me on discord @ashdfrkl
 
 Sharing this repo keeps me motivated to continue dropping 0-days for you all. 
