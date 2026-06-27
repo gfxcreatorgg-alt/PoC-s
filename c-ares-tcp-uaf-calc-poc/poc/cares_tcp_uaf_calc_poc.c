@@ -412,6 +412,7 @@ int main(int argc, char **argv)
   char server[64];
   int done = 0;
   int loops = 0;
+  int drain_after_done = 0;
   char ch;
 
   signal(SIGPIPE, SIG_IGN);
@@ -483,7 +484,10 @@ int main(int argc, char **argv)
   hints.ai_family = AF_INET;
   ares_getaddrinfo(channel, "example.com", "80", &hints, ai_cb, &done);
 
-  while (!done && loops++ < 100) {
+  if (control_call) {
+    drain_after_done = 8;
+  }
+  while ((!done || drain_after_done-- > 0) && loops++ < 120) {
     fd_set rfds;
     fd_set wfds;
     int nfds;
@@ -496,6 +500,11 @@ int main(int argc, char **argv)
       break;
     }
     tvp = ares_timeout(channel, NULL, &tv);
+    if (done && control_call && tvp != NULL &&
+        (tvp->tv_sec > 0 || tvp->tv_usec > 10000)) {
+      tvp->tv_sec = 0;
+      tvp->tv_usec = 10000;
+    }
     select(nfds, &rfds, &wfds, NULL, tvp);
     ares_process(channel, &rfds, &wfds);
   }
