@@ -196,6 +196,7 @@ static void load_poison_byte(void)
   const char *env = getenv("CARES_PROOF_POISON_BYTE");
   char *end = NULL;
   unsigned long value;
+  trace_allocator = getenv("CARES_PROOF_TRACE_ALLOC") != NULL;
   if (env == NULL || *env == '\0') {
     return;
   }
@@ -203,7 +204,6 @@ static void load_poison_byte(void)
   if (end != env && value <= 255) {
     poison_byte = (unsigned char)value;
   }
-  trace_allocator = getenv("CARES_PROOF_TRACE_ALLOC") != NULL;
 }
 
 
