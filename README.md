@@ -1,4 +1,4 @@
-https://discord.gg/WytKH65ZR join up! 
+https://discord.gg/WytKH65ZR join up for research, help, documentation, and more useful information for those interested.
 
 # Statement
 
