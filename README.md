@@ -1,3 +1,5 @@
+https://discord.gg/WytKH65ZR join up! 
+
 # Statement
 
 This repo was incomplete when published. That's why some findings are kinda ass (ghidra) and some are better. Going forward, only serious vulnerabilities will be shared (Floci, libssh2, FFmpeg, c-ares). 
