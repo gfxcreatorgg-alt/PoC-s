@@ -41,6 +41,7 @@ Most folders contain one of my former standalone PoC repos, preserved with its o
 | `ffmpeg-rasc-dlta-calc-poc` | direct entry, June 26, 2026 | 7 |
 | `ghidra-12.1.2-rce-ace-calc-poc` | `52dee6362990c03c0d753d074c85428824d46368` | 9 |
 | `gitea-act-runner-container-options-poc` | `f06d78fb111732f3e7737f4c07e77ef94c4b64bf` | 4 |
+| `gogs-admin-csrf-git-hook-rce-poc` | direct entry, July 1, 2026 | 3 |
 | `imagemagick-gs-delegate-hijack-poc` | `8140e8ee0ed78beaf5e8303a795b70b138f5891b` | 5 |
 | `ladybird-wasm-esm-host-function-rce-poc` | direct entry, July 1, 2026 | 2 |
 | `libarchive-zip-debuginfod-size-boundary` | direct entry, July 1, 2026 | 6 |
@@ -78,7 +79,7 @@ Matching Git blob IDs means the tracked file bytes are identical. The check cove
 
 This repository preserves the contents of those PoCs. Repository-level metadata such as stars, issues, pull requests, releases, and separate Git history remain in the original repository histories.
 
-Direct entries, including `c-ares-tcp-uaf-calc-poc`, `curl-smtp-expn-recipient-crlf-injection`, `ffmpeg-rasc-dlta-calc-poc`, `firefox-smartwindow-private-url-exfil-poc`, `floci-apigateway-vtl-rce-poc`, `ladybird-wasm-esm-host-function-rce-poc`, `libarchive-zip-debuginfod-size-boundary`, `libssh2-cve-2026-55200-poc`, `libssh2-publickey-list-calc-poc`, `nextjs-unstable-cache-object-argument-collision`, `nodebb-activitypub-attributedto-local-uid-spoof-poc`, `nghttp2-nghttpx-upgrade-queue-poison-poc`, `nmap-ipv6-extlen-wrap-poc`, `php857-streambucket-soap-rce-rpoc`, `pillow-imagecms-output-mode-oob-poc`, `qemu-cxl-type3-mailbox-escape-poc`, `rustdesk-session-permission-pocs`, and `systeminformer-phsvc-trusted-host-lpe-poc`, are tracked by this repository's commit history.
+Direct entries, including `c-ares-tcp-uaf-calc-poc`, `curl-smtp-expn-recipient-crlf-injection`, `ffmpeg-rasc-dlta-calc-poc`, `firefox-smartwindow-private-url-exfil-poc`, `floci-apigateway-vtl-rce-poc`, `gogs-admin-csrf-git-hook-rce-poc`, `ladybird-wasm-esm-host-function-rce-poc`, `libarchive-zip-debuginfod-size-boundary`, `libssh2-cve-2026-55200-poc`, `libssh2-publickey-list-calc-poc`, `nextjs-unstable-cache-object-argument-collision`, `nodebb-activitypub-attributedto-local-uid-spoof-poc`, `nghttp2-nghttpx-upgrade-queue-poison-poc`, `nmap-ipv6-extlen-wrap-poc`, `php857-streambucket-soap-rce-rpoc`, `pillow-imagecms-output-mode-oob-poc`, `qemu-cxl-type3-mailbox-escape-poc`, `rustdesk-session-permission-pocs`, and `systeminformer-phsvc-trusted-host-lpe-poc`, are tracked by this repository's commit history.
 
 ## ABUSE
 
