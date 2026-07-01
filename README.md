@@ -4,7 +4,7 @@ https://discord.gg/WytKH65ZR join up for research, help, documentation, and more
 
 This repo was incomplete when published. 
 
-In regard to AI usage, my fuzzing workflow was automated by AI with a strict harness. I used GPT-5.3-Codex-Spark for ALL the fuzzing, as barely any "thought" is necessary when provided with an efficient harness. Contrary to the growing narrative that I'm just some random child burning tokens, I DO actually have a degree in the subject and have published multiple papers on fuzzing methodology. I spent years researching and developing new tools and ideas for how to fuzz. You do NOT need a SOTA model to help you identify these issues, I promise! While being able to afford a better model is helpful, my data seems to show that it is only marginal when paired with decent human oversight and a good harness. None of the actual PoCs themselves were vibe-coded; I did, in fact, hand-type them. I did use AI assistance for RustDesk, however, as I'm not as familiar with the language. The README files are very clearly entirely AI, however, as AI can format a pretty mean Markdown file. I reviewed them to make sure they were accurate.
+In regard to AI usage, my fuzzing workflow was automated by AI with a strict workflow. I used GPT-5.3 for ALL the fuzzing, as barely any "thought" is necessary when provided with an efficient workflow. Contrary to the growing narrative that I'm just some random child burning tokens, I DO actually have a degree in the subject and have published multiple papers on fuzzing methodology. I spent years researching and developing new tools and ideas for how to fuzz. You do NOT need a SOTA model to help you identify these issues, I promise! While being able to afford a better model is helpful, my data seems to show that it is only marginal when paired with decent human oversight and a good workflow. None of the actual PoCs themselves were vibe-coded; I did, in fact, hand-type them. I did use AI assistance for RustDesk, however, as I'm not as familiar with the language. The README files are very clearly entirely AI, however, as AI can format a pretty mean Markdown file. I reviewed them to make sure they were accurate.
 
 I'd also like to credit someone for the objdump finding. It turns out, someone beat me to the punch (they also have a better PoC too!). Please give them the credit they deserve:
 https://github.com/4D4J/objdump-Out-Of-Bounds-write
@@ -49,6 +49,7 @@ Most folders contain one of my former standalone PoC repos, preserved with its o
 | `lunar-modrinth-chain-poc` | `ffd02120708b6503f11585858ce3724872f3b7a7` | 6 |
 | `mybb-limited-acp-to-admin` | `1610e0373943c2f6562a99f917d3a3d1fdd9056d` | 5 |
 | `nextjs-unstable-cache-object-argument-collision` | direct entry, July 1, 2026 | 3 |
+| `nodebb-activitypub-attributedto-local-uid-spoof-poc` | direct entry, July 1, 2026 | 3 |
 | `nghttp2-nghttpx-upgrade-queue-poison-poc` | direct entry, June 26, 2026 | 3 |
 | `nmap-ipv6-extlen-wrap-poc` | direct entry, June 23, 2026 | 4 |
 | `objdump-dlx-calc-poc` | `7df01e4e20c7375a89e8ccf760526c52eb6ad582` | 41 |
@@ -75,7 +76,7 @@ Matching Git blob IDs means the tracked file bytes are identical. The check cove
 
 This repository preserves the contents of those PoCs. Repository-level metadata such as stars, issues, pull requests, releases, and separate Git history remain in the original repository histories.
 
-Direct entries, including `c-ares-tcp-uaf-calc-poc`, `curl-smtp-expn-recipient-crlf-injection`, `ffmpeg-rasc-dlta-calc-poc`, `firefox-smartwindow-private-url-exfil-poc`, `floci-apigateway-vtl-rce-poc`, `ladybird-wasm-esm-host-function-rce-poc`, `libarchive-zip-debuginfod-size-boundary`, `libssh2-cve-2026-55200-poc`, `libssh2-publickey-list-calc-poc`, `nextjs-unstable-cache-object-argument-collision`, `nghttp2-nghttpx-upgrade-queue-poison-poc`, `nmap-ipv6-extlen-wrap-poc`, `php857-streambucket-soap-rce-rpoc`, `rustdesk-session-permission-pocs`, and `systeminformer-phsvc-trusted-host-lpe-poc`, are tracked by this repository's commit history.
+Direct entries, including `c-ares-tcp-uaf-calc-poc`, `curl-smtp-expn-recipient-crlf-injection`, `ffmpeg-rasc-dlta-calc-poc`, `firefox-smartwindow-private-url-exfil-poc`, `floci-apigateway-vtl-rce-poc`, `ladybird-wasm-esm-host-function-rce-poc`, `libarchive-zip-debuginfod-size-boundary`, `libssh2-cve-2026-55200-poc`, `libssh2-publickey-list-calc-poc`, `nextjs-unstable-cache-object-argument-collision`, `nodebb-activitypub-attributedto-local-uid-spoof-poc`, `nghttp2-nghttpx-upgrade-queue-poison-poc`, `nmap-ipv6-extlen-wrap-poc`, `php857-streambucket-soap-rce-rpoc`, `rustdesk-session-permission-pocs`, and `systeminformer-phsvc-trusted-host-lpe-poc`, are tracked by this repository's commit history.
 
 ## ABUSE
 
