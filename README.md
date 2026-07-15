@@ -1,5 +1,3 @@
-https://discord.gg/WytKH65ZR join up for research, help, documentation, and more useful information for those interested.
-
 # Statement
 
 This repo was incomplete when published. 
@@ -11,11 +9,9 @@ https://github.com/4D4J/objdump-Out-Of-Bounds-write
 
 # News/Contact
 
-New drops today ;) Biggest thing yet (DELAYED, I PROMISE THE WAIT WILL BE WORTH IT! After this, you guys will *usually* get one new PoC a day)
-
 I've also noticed a surprising amount of "security researchers" aren't able to adjust the PoC to work in their environment. I will broaden the PoCs for those select few...
 
-If you wish to collaborate/discuss with me, contact me on discord @ashdfrkl
+If you wish to collaborate/discuss with me, contact me on telegram @ashdfrkl
 
 Sharing this repo keeps me motivated to continue dropping my findings for you all. 
 
